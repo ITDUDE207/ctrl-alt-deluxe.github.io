@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG Game Info & Map</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+        }
+        .navbar {
+            background-color: #000 !important;
+            border-bottom: 2px solid #00ff00;
+        }
+        .navbar-brand, .nav-link {
+            color: #00ff00 !important;
+        }
+        .info-container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: #000;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+        h1, h2 {
+            color: #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            text-align: center;
+        }
+        .map-container {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        .game-map {
+            display: grid;
+            grid-template-columns: repeat(2, 200px);
+            grid-template-rows: repeat(2, 200px);
+            gap: 30px;
+            position: relative;
+        }
+        .room {
+            background-color: #0a0a0a;
+            border: 3px solid #00ff00;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+        .room:hover {
+            background-color: #1a1a1a;
+            box-shadow: 0 0 25px rgba(0, 255, 0, 0.5);
+        }
+        .room-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffff00;
+            margin-bottom: 10px;
+        }
+        .room-item {
+            font-size: 14px;
+            color: #00ffff;
+            margin-top: 10px;
+        }
+        .goal-room {
+            border-color: #ffff00;
+            box-shadow: 0 0 20px rgba(255, 255, 0, 0.4);
+        }
+        .arrow {
+            position: absolute;
+            color: #00ff00;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .arrow-right {
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .arrow-down {
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .legend {
+            background-color: #0a0a0a;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .legend h3 {
+            color: #00ff00;
+            margin-bottom: 15px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .legend-color {
+            width: 30px;
+            height: 30px;
+            margin-right: 15px;
+            border: 2px solid;
+            border-radius: 5px;
+        }
+        .key-color {
+            background-color: #00ffff;
+            border-color: #00ffff;
+        }
+        .potion-color {
+            background-color: #ff00ff;
+            border-color: #ff00ff;
+        }
+        .goal-color {
+            background-color: transparent;
+            border-color: #ffff00;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="wormhole.html">Wormhole</a></li>
+                    <li class="nav-item"><a class="nav-link" href="rpg.html">Python RPG</a></li>
+                    <li class="nav-item"><a class="nav-link" href="car-game.html">Car Driving</a></li>
+                    <li class="nav-item"><a class="nav-link" href="micro-farm.html">Micro Farm</a></li>
+                    <li class="nav-item"><a class="nav-link" href="flight-sim.html">Flight Sim</a></li>
+                    <li class="nav-item"><a class="nav-link" href="fox-sim.html">Fox Sim</a></li>
+                    <li class="nav-item"><a class="nav-link" href="plane-game.html">Sky Dogfight</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tower-defense.html">Tower Defense</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="info.html">Info</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="info-container">
+        <h1>🗺️ RPG Game Map & Information 🗺️</h1>
+        
+        <h2 style="margin-top: 30px;">Game Map</h2>
+        
+        <div class="map-container">
+            <div class="game-map">
+                <div class="room">
+                    <div class="room-name">🏛️ Hall</div>
+                    <div class="room-item">🔑 Key</div>
+                    <div class="arrow arrow-right">→</div>
+                    <div class="arrow arrow-down">↓</div>
+                </div>
+                
+                <div class="room">
+                    <div class="room-name">🍽️ Dining Room</div>
+                    <div class="room-item">(Empty)</div>
+                    <div class="arrow arrow-down">↓</div>
+                </div>
+                
+                <div class="room">
+                    <div class="room-name">🍳 Kitchen</div>
+                    <div class="room-item">🧪 Potion</div>
+                    <div class="arrow arrow-right">→</div>
+                </div>
+                
+                <div class="room goal-room">
+                    <div class="room-name">🌳 Garden</div>
+                    <div class="room-item">⭐ GOAL! ⭐</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="legend">
+            <h3>📋 Legend</h3>
+            <div class="legend-item">
+                <div class="legend-color key-color"></div>
+                <span>🔑 Key - Found in the Hall (Required to win)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color potion-color"></div>
+                <span>🧪 Potion - Found in the Kitchen (Required to win)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color goal-color"></div>
+                <span>⭐ Goal - Reach the Garden with both items to win!</span>
+            </div>
+        </div>
+
+        <div class="legend" style="margin-top: 20px;">
+            <h3>🎮 How to Play</h3>
+            <p><strong>Commands:</strong></p>
+            <ul>
+                <li><code>go north</code> - Move north</li>
+                <li><code>go south</code> - Move south</li>
+                <li><code>go east</code> - Move east</li>
+                <li><code>go west</code> - Move west</li>
+                <li><code>get key</code> - Pick up the key</li>
+                <li><code>get potion</code> - Pick up the potion</li>
+            </ul>
+            
+            <p style="margin-top: 15px;"><strong>Winning Strategy:</strong></p>
+            <ol>
+                <li>Start in the Hall</li>
+                <li>Type <code>get key</code> to collect the key</li>
+                <li>Type <code>go south</code> to move to the Kitchen</li>
+                <li>Type <code>get potion</code> to collect the potion</li>
+                <li>Type <code>go east</code> to reach the Garden</li>
+                <li>You win! 🎉</li>
+            </ol>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="rpg.html" class="btn btn-success btn-lg" style="background-color: #00ff00; color: #000; border: none; font-weight: bold;">Play the Game Now!</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="auth.js"></script>
+</body>
+</html>

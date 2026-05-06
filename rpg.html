@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python RPG Game</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+        }
+        .navbar {
+            background-color: #000 !important;
+            border-bottom: 2px solid #00ff00;
+        }
+        .navbar-brand, .nav-link {
+            color: #00ff00 !important;
+        }
+        .game-container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: #000;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+        h1 {
+            color: #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        #game-output {
+            background-color: #0a0a0a;
+            border: 1px solid #00ff00;
+            padding: 20px;
+            border-radius: 5px;
+            min-height: 400px;
+            max-height: 500px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        #game-input {
+            background-color: #0a0a0a;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            padding: 10px;
+            width: 100%;
+        }
+        #game-input:focus {
+            outline: none;
+            border-color: #00ff00;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+        .game-line {
+            margin-bottom: 5px;
+        }
+        .room-name {
+            color: #ffff00;
+            font-weight: bold;
+        }
+        .item-name {
+            color: #00ffff;
+        }
+        .error-text {
+            color: #ff0000;
+        }
+        .success-text {
+            color: #00ff00;
+        }
+        .divider {
+            color: #00ff00;
+            margin: 10px 0;
+        }
+        #reset-btn {
+            background-color: #00ff00;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        #reset-btn:hover {
+            background-color: #00cc00;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="wormhole.html">Wormhole</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="rpg.html">Python RPG</a></li>
+                    <li class="nav-item"><a class="nav-link" href="car-game.html">Car Driving</a></li>
+                    <li class="nav-item"><a class="nav-link" href="micro-farm.html">Micro Farm</a></li>
+                    <li class="nav-item"><a class="nav-link" href="flight-sim.html">Flight Sim</a></li>
+                    <li class="nav-item"><a class="nav-link" href="fox-sim.html">Fox Sim</a></li>
+                    <li class="nav-item"><a class="nav-link" href="plane-game.html">Sky Dogfight</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tower-defense.html">Tower Defense</a></li>
+                    <li class="nav-item"><a class="nav-link" href="info.html">Info</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="game-container">
+        <h1>🐍 Python RPG Adventure Game 🎮</h1>
+        
+        <div id="game-output"></div>
+        
+        <input type="text" id="game-input" placeholder="Enter command (e.g., 'go south' or 'get key')..." autocomplete="off">
+        <button id="reset-btn" class="btn">Reset Game</button>
+    </div>
+
+    <script>
+        class RPGGame {
+            constructor() {
+                this.inventory = [];
+                this.currentRoom = 1;
+                this.gameOver = false;
+                this.rooms = {
+                    1: {
+                        name: 'Hall',
+                        south: 2,
+                        east: 3,
+                        item: 'key'
+                    },
+                    2: {
+                        name: 'Kitchen',
+                        north: 1,
+                        east: 4,
+                        item: 'potion'
+                    },
+                    3: {
+                        name: 'Dining Room',
+                        west: 1,
+                        south: 4
+                    },
+                    4: {
+                        name: 'Garden',
+                        north: 3,
+                        west: 2
+                    },
+                    5: {
+                        name: 'Cellar',
+                        item: 'monster'
+                    }
+                };
+            }
+
+            start() {
+                this.printLine('========================================');
+                this.printLine('       RPG ADVENTURE GAME', 'success-text');
+                this.printLine('========================================');
+                this.printLine('');
+                this.printLine('Commands:');
+                this.printLine('  go [direction] - Move (north, south, east, west)');
+                this.printLine('  get [item] - Pick up an item');
+                this.printLine('');
+                this.printLine('Goal: Collect the key and potion, then reach the Garden to escape!');
+                this.printLine('');
+                this.printLine('---------------------------', 'divider');
+                this.showStatus();
+            }
+
+            showStatus() {
+                const room = this.rooms[this.currentRoom];
+                this.printLine('');
+                this.printLine(`You are in the ${room.name}`, 'room-name');
+                this.printLine(`Inventory: [${this.inventory.join(', ')}]`);
+                
+                if (room.item) {
+                    if (room.item === 'monster') {
+                        this.printLine('');
+                        this.printLine('⚠️  A MONSTER APPEARS! ⚠️', 'error-text');
+                        this.printLine('GAME OVER - You have been defeated!', 'error-text');
+                        this.gameOver = true;
+                        return;
+                    } else {
+                        this.printLine(`You see a ${room.item}`, 'item-name');
+                    }
+                }
+                
+                const exits = [];
+                if (room.north) exits.push('north');
+                if (room.south) exits.push('south');
+                if (room.east) exits.push('east');
+                if (room.west) exits.push('west');
+                
+                if (exits.length > 0) {
+                    this.printLine(`Exits: ${exits.join(', ')}`);
+                }
+                
+                this.printLine('---------------------------', 'divider');
+                
+                this.checkWin();
+            }
+
+            checkWin() {
+                if (this.currentRoom === 4 && 
+                    this.inventory.includes('key') && 
+                    this.inventory.includes('potion')) {
+                    this.printLine('');
+                    this.printLine('🎉 CONGRATULATIONS! 🎉', 'success-text');
+                    this.printLine('You escaped the house with the key and potion!', 'success-text');
+                    this.printLine('YOU WIN!', 'success-text');
+                    this.gameOver = true;
+                }
+            }
+
+            processCommand(input) {
+                if (this.gameOver) {
+                    this.printLine('Game is over! Click "Reset Game" to play again.', 'error-text');
+                    return;
+                }
+
+                const parts = input.toLowerCase().trim().split(' ');
+                
+                if (parts.length < 2) {
+                    this.printLine('Invalid command! Use "go [direction]" or "get [item]"', 'error-text');
+                    return;
+                }
+
+                const command = parts[0];
+                const argument = parts[1];
+
+                this.printLine(`> ${input}`, 'success-text');
+
+                if (command === 'go') {
+                    this.handleGo(argument);
+                } else if (command === 'get') {
+                    this.handleGet(argument);
+                } else {
+                    this.printLine('Unknown command! Use "go" or "get"', 'error-text');
+                }
+            }
+
+            handleGo(direction) {
+                const room = this.rooms[this.currentRoom];
+                
+                if (room[direction]) {
+                    this.currentRoom = room[direction];
+                    this.showStatus();
+                } else {
+                    this.printLine("You can't go that way!", 'error-text');
+                }
+            }
+
+            handleGet(item) {
+                const room = this.rooms[this.currentRoom];
+                
+                if (room.item && room.item === item) {
+                    if (item === 'monster') {
+                        this.printLine("You can't get a monster!", 'error-text');
+                        return;
+                    }
+                    this.inventory.push(item);
+                    this.printLine(`${item} picked up!`, 'success-text');
+                    delete room.item;
+                } else {
+                    this.printLine(`Can't get ${item}!`, 'error-text');
+                }
+            }
+
+            printLine(text, className = 'game-line') {
+                const output = document.getElementById('game-output');
+                const line = document.createElement('div');
+                line.className = className;
+                line.textContent = text;
+                output.appendChild(line);
+                output.scrollTop = output.scrollHeight;
+            }
+
+            reset() {
+                document.getElementById('game-output').innerHTML = '';
+                this.inventory = [];
+                this.currentRoom = 1;
+                this.gameOver = false;
+                this.rooms[1].item = 'key';
+                this.rooms[2].item = 'potion';
+                delete this.rooms[3].item;
+                this.start();
+            }
+        }
+
+        const game = new RPGGame();
+        game.start();
+
+        const input = document.getElementById('game-input');
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const command = input.value;
+                if (command.trim()) {
+                    game.processCommand(command);
+                    input.value = '';
+                }
+            }
+        });
+
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            game.reset();
+            input.value = '';
+            input.focus();
+        });
+
+        input.focus();
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="auth.js"></script>
+</body>
+</html>

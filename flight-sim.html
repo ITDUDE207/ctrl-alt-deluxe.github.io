@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Flight Simulator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .navbar {
+            background-color: #000 !important;
+            border-bottom: 2px solid #00ff00;
+        }
+        .navbar-brand, .nav-link {
+            color: #00ff00 !important;
+        }
+        .nav-link:hover {
+            color: #00ffff !important;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+        }
+        .game-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: calc(100vh - 56px);
+        }
+        h1 {
+            color: #00ff00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+            text-align: center;
+            margin: 10px 0;
+            font-size: 1.5rem;
+        }
+        .game-frame {
+            border: 3px solid #00ff00;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+            width: 95%;
+            flex: 1;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">🎮 Gaming Hub</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="wormhole.html">Wormhole</a></li>
+                    <li class="nav-item"><a class="nav-link" href="rpg.html">Python RPG</a></li>
+                    <li class="nav-item"><a class="nav-link" href="car-game.html">Car Driving</a></li>
+                    <li class="nav-item"><a class="nav-link" href="micro-farm.html">Micro Farm</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="flight-sim.html">Flight Sim</a></li>
+                    <li class="nav-item"><a class="nav-link" href="fox-sim.html">Fox Sim</a></li>
+                    <li class="nav-item"><a class="nav-link" href="plane-game.html">Sky Dogfight</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tower-defense.html">Tower Defense</a></li>
+                    <li class="nav-item"><a class="nav-link" href="info.html">Info</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="game-wrapper">
+        <h1>✈️ REAL FLIGHT SIMULATOR ✈️</h1>
+        <iframe class="game-frame" src="https://cloud.onlinegames.io/games/2023/unity2/real-flight-simulator/index.html" allowfullscreen allow="autoplay; fullscreen; gamepad"></iframe>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="auth.js"></script>
+</body>
+</html>
